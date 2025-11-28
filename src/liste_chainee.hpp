@@ -29,7 +29,7 @@ public:
     void AjouterFin(const Trajet & trajet);
     //ajouter à la fin un trajet. meme remarque qu'au dessus
 
-    void AjouterTrajet(const Trajet & trajet);
+    void AjouterTrajet(const Trajet & trajet, int place);
     //ajouter un trajet à une place. 
     // Si au début ou a la fin, appel automatique de AjouterDebut ou AjouterFin
 
@@ -38,7 +38,7 @@ public:
     void SupprimerDebut(const Trajet & trajet);
     //ajouter à la fin un trajet. meme remarque qu'au dessus
 
-    void SupprimerTrajet(const Trajet & trajet);
+    void SupprimerTrajet(const Trajet & trajet, int place);
     //ajouter à la fin un trajet. meme remarque qu'au dessus
 
 
