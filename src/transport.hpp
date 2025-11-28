@@ -9,7 +9,7 @@
 // Et il n'y a pas d'intérêt de les afficher en string 
 // Car la comparaison serait plus lente 
 
-enum class Transport 
+enum Transport 
 {
     AUTO,
     TRAIN,

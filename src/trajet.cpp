@@ -22,12 +22,12 @@
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Ensemble::Méthode ( liste des paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
-
+void Trajet::Afficher(){
+    std::cout << depart 
+    <<" --> "<< arrivee
+    <<" ("<< trans<<" )" 
+    << std::endl;
+}
 
 //------------------------------------------------- Surcharge d'opérateurs
 
@@ -89,34 +89,6 @@ Trajet::~Trajet()
 }
 
 //-------------------------------------------- Constructeurs - destructeur
-Ensemble::Ensemble ( const Ensemble & unEnsemble )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Ensemble>" << endl;
-#endif
-} //----- Fin de Ensemble (constructeur de copie)
-
-
-Ensemble::Ensemble ( )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de <Ensemble>" << endl;
-#endif
-} //----- Fin de Ensemble
-
-
-Ensemble::~Ensemble ( )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au destructeur de <Ensemble>" << endl;
-#endif
-} //----- Fin de ~Ensemble
 
 
 //------------------------------------------------------------------ PRIVE

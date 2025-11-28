@@ -20,6 +20,9 @@ class ListeChainee
 public:
     //----------------------------------------------------- Méthodes publiques
 
+    void Afficher();
+    // afficher la liste
+
     Noeud RechercheNoeud(const Trajet & trajet);
     // retourner le noeud, ou trajet? correspondant? non ca faire plus dans catalogue?
 

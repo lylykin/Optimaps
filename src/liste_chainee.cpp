@@ -154,6 +154,17 @@ void ListeChainee::SupprimerTrajet(const Trajet &trajet, int place)
     }   
 }
 
+void ListeChainee::Afficher(){
+    cout<<"Liste [: "<< endl;
+    Noeud *res_noeud = tete;
+    for (size_t i = 0; i < taille; i++)
+    {
+        cout<<res_noeud<<"; "; 
+        res_noeud = res_noeud->getSuivant();        
+    }
+    
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 //-------------------------------------------- Constructeurs - destructeur
 

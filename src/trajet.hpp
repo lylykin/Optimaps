@@ -19,9 +19,6 @@ class Trajet
 
 public:
     //----------------------------------------------------- Méthodes publiques
-
-    // pour les 3 méthodes d'en dessous, je ne suis pas sure de l'utilité?
-
     // Mode d'emploi :
 
     Ville getDepart() const { return depart; }
@@ -30,7 +27,9 @@ public:
     // getDepart et getArrivee retournent un pointeur 
     // qui deviennent invalides lors de la destruction
     // de trajet ! 
-     
+
+    virtual void Afficher();
+    // Afficher un trajet
     //------------------------------------------------- Surcharge d'opérateurs
     Trajet & operator=(const Trajet& right);
     // Contrat: 
