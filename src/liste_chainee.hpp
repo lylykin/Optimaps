@@ -1,5 +1,5 @@
-#if !defined(CATALOGUE_H)
-#    define CATALOGUE_H
+#if !defined(LISTE_CHAINEE_H)
+#    define LISTE_CHAINEE_H
 
 #include "noeud.hpp"
 //--------------------------------------------------- Interfaces utilisées
@@ -13,45 +13,48 @@
 // donne un trajet simple entre 2 villes, et son moyen de transport.
 //
 //------------------------------------------------------------------------
-class ListeChainee
+class ListeChainee : public Noeud 
 {
     //----------------------------------------------------------------- PUBLIC
 
 public:
+
+
     //----------------------------------------------------- Méthodes publiques
 
-    void Afficher();
+    virtual void Afficher() const;
     // afficher la liste
 
-    Noeud RechercheNoeud(const Trajet & trajet);
-    // retourner le noeud, ou trajet? correspondant? non ca faire plus dans catalogue?
-
-    void AjouterTete(const Trajet & trajet);
+    void AjouterTete(Noeud* noeud);
     // ajouter en tete un trajet. Est ce que séparation tete/fin et taille random? Par perf je dirais oui
 
-    void AjouterFin(const Trajet & trajet);
+    void AjouterFin(Noeud* noeud);
     //ajouter à la fin un trajet. meme remarque qu'au dessus
 
-    void AjouterTrajet(const Trajet & trajet, int place);
+    virtual void AjouterNoeud(Noeud* noeud, int place = 0);
     //ajouter un trajet à une place. 
-    // Si au début ou a la fin, appel automatique de AjouterDebut ou AjouterFin
+    // Si au début ou a la fin, appel automa            Noeud *new_traj = new Trajet(*noeud);tique de AjouterDebut ou AjouterFin
 
-    void SupprimerFin(const Trajet & trajet);
+    void SupprimerFin();
     //ajouter à la fin un trajet. meme remarque qu'au dessus
-    void SupprimerDebut(const Trajet & trajet);
-    //ajouter à la fin un trajet. meme remarque qu'au dessus
-
-    void SupprimerTrajet(const Trajet & trajet, int place);
+    void SupprimerDebut();
     //ajouter à la fin un trajet. meme remarque qu'au dessus
 
+    void SupprimerTrajet(Noeud *noeud, int place);
+    //ajouter à la fin un trajet. meme remarque qu'au dessus
+
+    Ville getDepart() const; 
+
+    Ville getArrivee() const;
 
 
     //------------------------------------------------- Surcharge d'opérateurs
+    ListeChainee();
+    virtual ~ListeChainee();
+
 
     //-------------------------------------------- Constructeurs - destructeur
-    ListeChainee();
 
-    virtual ~ListeChainee();
     // virtual car serait aussi encapsulée dans catalogue. 
     // Mode d'emploi :
     //

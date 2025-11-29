@@ -2,6 +2,7 @@
 #    define TRAJET_H
 #include "transport.hpp"
 #include "ville.hpp"
+#include "noeud.hpp"
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
@@ -13,53 +14,54 @@
 // donne un trajet simple entre 2 villes, et son moyen de transport.
 //
 //------------------------------------------------------------------------
-class Trajet
+class Trajet : public Noeud
 {
-    //----------------------------------------------------------------- PUBLIC
+        //----------------------------------------------------------------- PUBLIC
 
-public:
-    //----------------------------------------------------- Méthodes publiques
-    // Mode d'emploi :
+    public:
+        //----------------------------------------------------- Méthodes publiques
+        // Mode d'emploi :
 
-    Ville getDepart() const { return depart; }
-    Ville getArrivee() const { return arrivee;}
     // Contrat :
-    // getDepart et getArrivee retournent un pointeur 
-    // qui deviennent invalides lors de la destruction
-    // de trajet ! 
+        // getDepart et getArrivee retournent un pointeur 
+        // qui deviennent invalides lors de la destruction
+        // de trajet ! 
 
-    virtual void Afficher();
-    // Afficher un trajet
-    //------------------------------------------------- Surcharge d'opérateurs
-    Trajet & operator=(const Trajet& right);
-    // Contrat: 
-    // Créé une copie depuis right 
+        virtual void Afficher();
+        // Afficher un trajet
+        //------------------------------------------------- Surcharge d'opérateurs
+        Trajet & operator=(const Trajet& right);
+        // Contrat: 
+        // Créé une copie depuis right 
 
-    //-------------------------------------------- Constructeurs - destructeur
-    Trajet(Ville vdepart, Ville varrivee, Transport transport);
-    Trajet(Trajet const & copie);
-
+        //-------------------------------------------- Constructeurs - destructeur
+        Trajet(Ville vdepart, Ville varrivee, Transport transport);
+        Trajet(Trajet const & copie);
     
-    // Contrat: 
-    // Créé une copie de départ et d'arrivee, 
-    // Donc ne pas oublier de les free !
+        Ville getDepart() const { return depart; }
+        Ville getArrivee() const { return arrivee;}
+    
+        
+        // Contrat: 
+        // Créé une copie de départ et d'arrivee, 
+        // Donc ne pas oublier de les free !
 
 
-    virtual ~Trajet();
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-    //------------------------------------------------------------------ PRIVE
+        virtual ~Trajet();
+        // Mode d'emploi :
+        //
+        // Contrat :
+        //
+        //------------------------------------------------------------------ PRIVE
 
-protected:
-    //----------------------------------------------------- Méthodes protégées
+    protected:
+        //----------------------------------------------------- Méthodes protégées
 
-    //----------------------------------------------------- Attributs protégés
-    Transport trans;
-    Ville depart;  // ville de départ du trajet simple
-    Ville arrivee; // ville d'arrivée
-    // note pour améloration : manque le temps de trajet, et de pouvoir sélectonner un mode de transport
+        //----------------------------------------------------- Attributs protégés
+        Transport trans;
+        Ville depart;  // ville de départ du trajet simple
+        Ville arrivee; // ville d'arrivée
+        // note pour améloration : manque le temps de trajet, et de pouvoir sélectonner un mode de transport
 };
 
 //-------------------------------- Autres définitions dépendantes de <Ensemble>

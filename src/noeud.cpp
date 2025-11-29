@@ -7,8 +7,3 @@
 #include "trajet.hpp"
 //----------------------------------------------------------------- PUBLIC
 
-//----------------------------------------------------- Méthodes publiques
-Noeud::Noeud(Trajet const& traj)
-  : ::Trajet(traj) {}
-
-Noeud::~Noeud(){}
