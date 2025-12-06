@@ -5,6 +5,7 @@
 //--------------------------------------------------- Interfaces utilisées
 
 //------------------------------------------------------------- Constantes
+#define DEFAULT_PLACE 0
 
 //------------------------------------------------------------------ Types
 
@@ -31,7 +32,7 @@ public:
     void AjouterFin(Noeud* noeud);
     //ajouter à la fin un trajet. meme remarque qu'au dessus
 
-    virtual void AjouterNoeud(Noeud* noeud, int place = 0);
+    virtual void AjouterNoeud(Noeud* noeud, int place = DEFAULT_PLACE);
     //ajouter un trajet à une place. 
     // Si au début ou a la fin, appel automa            Noeud *new_traj = new Trajet(*noeud);tique de AjouterDebut ou AjouterFin
 

@@ -9,11 +9,9 @@
 #include "liste_chainee.hpp"
 
 //------------------------------------------------------------- Constantes
-
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-
 
 /*
 ListeChainee::ListeChainee(const ListeChainee &other)
@@ -45,7 +43,7 @@ ListeChainee &ListeChainee::operator=(const ListeChainee &other)
     Noeud *current = other.tete;
     for (size_t i = 0; i < other.taille; ++i)
     {
-        
+
         this->AjouterFin(current);
         current = current->getSuivant();
     }
@@ -55,6 +53,7 @@ ListeChainee &ListeChainee::operator=(const ListeChainee &other)
 
 void ListeChainee::AjouterTete(Noeud *noeud)
 {
+    std::cout << "Ajout d'un noeud en tête de liste" << std::endl;
     noeud->setSuivant(tete);
     tete = noeud;
     ++taille;
@@ -87,10 +86,20 @@ void ListeChainee::AjouterFin(Noeud *noeud)
 
 void ListeChainee::AjouterNoeud(Noeud *noeud, int place)
 {
+    std::cout << "Ajout de noeud à l'indice " << place << std::endl;
     if ((place >= taille) || (place < 0))
     {
-        std::cout << "erreur : place est out of range: " << place << std::endl;
-        return;
+        //gestion du cas de la lsite vide
+        if (taille == 0)
+        {
+            AjouterTete(noeud);
+        }
+        //gestion de l'erreur d'indice
+        else
+        {
+            std::cout << "erreur : place est out of range: " << place << std::endl;
+            return;
+        }
     }
     else
     {
@@ -139,8 +148,8 @@ void ListeChainee::SupprimerFin()
 
 void ListeChainee::SupprimerTrajet(Noeud *noeud, int place)
 {
-    //#FIXME : je pense que cette implémentation n'est pas logique.
-    // faire à partir du trajet et non de la place.
+    // #FIXME : je pense que cette implémentation n'est pas logique.
+    //  faire à partir du trajet et non de la place.
     if ((place >= taille) || (place < 0))
     {
         std::cout << "erreur : place est out of range: " << place << std::endl;
@@ -229,8 +238,6 @@ ListeChainee::~ListeChainee()
         tete = res;
     }
 }
-
-
 
 //------------------------------------------------------------------ PRIVE
 

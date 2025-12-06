@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "catalogue.hpp"
+#include "transport.hpp"
 
 enum UIOptions   
 {
@@ -35,17 +36,21 @@ int main(){
 
         
         switch(user_choice)
+        //#FIXME : dans le cas ou l'utilisateur rentre autre chose qu'un chiffre, boucle à l'infini!!
         {
             case OPTION_AJOUT_TRAJET:
-                std::cout<<"Ajouter un trajet"<<std::endl;
+                std::cout<<"Ajout d'un trajet"<<std::endl;
+                std::cout<<"Ville de départ : "<<std::endl;
                 std::cin>>v_a;
+                std::cout<<"Ville d'arrivée : "<<std::endl;
                 std::cin>>v_b;
+                std::cout<<"Mode de transport : "<<std::endl;
                 std::cin>>t;
-                traj = new Trajet((Ville)v_a, (Ville)v_b, Transport::AUTO);
-                std::cout<<"trajet créé. ajout au catalogue"<<std::endl;
-                //#FIXME : implémenter un string2trans dans transport pour personnaliser
+                traj = new Trajet((Ville) v_a, (Ville) v_b, Transport::AUTO);
+                //traj = new Trajet((Ville)v_a, (Ville)v_b, Str2Transport(&t));
+                //j'arrive pas a l'utiliser aled
+                std::cout<<"Trajet créé. Ajout au catalogue"<<std::endl;
                 catalogue.AjouterTrajet(traj);
-                //#FIXME : place out of range
                 //#FIXME : cleanup des méthodes redondantes              
                 break;
             case OPTION_MODIF_TRAJET:
@@ -57,6 +62,7 @@ int main(){
             case OPTION_DISPLAY_ALL:
                 std::cout<<"Afficher tous les trajet : en debug^^"<<std::endl;
                 catalogue.Afficher();
+                //#FIXME : soit l'affichage est foireux, soit la créationd des trajets l'est. debug individuellement
                 break;
             case OPTION_EXIT:
                 std::cout<<"Au revoir!"<<std::endl;
