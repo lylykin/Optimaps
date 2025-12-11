@@ -1,80 +1,25 @@
-//---------- Réalisation de la classe Catalogue (fichier catalogue.cpp) ------------
+//---------- Réalisation de la classe <Catalogue> (fichier Catalogue.cpp) ----------------
 
-// GNU GPL v3 license  
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//------------------------------------------------------------ Include système
+using namespace std;
+#include <iostream>
 #include <climits>
 #include <cstddef>
-#include <iostream>
 #include <string.h>
+
+//---------------------------------------------------------- Include personnel
+#include "catalogue.hpp"
 #include "liste_chainee.hpp"
 #include "pile.hpp"
 #include "ville.hpp"
-using namespace std;
-//------------------------------------------------------ Include personnel
-#include "catalogue.hpp"
 
-//------------------------------------------------------------- Constantes
+//----------------------------------------------------------------- Constantes
 
-//----------------------------------------------------------------- PUBLIC
+//--------------------------------------------------------------------- PUBLIC
 
-
-/*
-
-def bfs(o_graph, s_deb):
-    
-    q = [s_deb]         # noeuds à vister
-    pred = {}           # predecesseur
-    visitee = [s_deb]   # noeuds déjà visités
-
-    while len(q) > 0:
-        a_visiter = q.pop(0)
-        if a_visiter in o_graph.keys(): 
-            for v in o_graph[a_visiter]:
-                # o_graph est de la forme : {a:[[1,b], [2,c]]}
-                nom_noeud = v[1]
-                if not nom_noeud in visitee:    # on vérifie que le noeud n'a pas déjà été visté
-                    visitee.append(nom_noeud)   # on ajoute le noeud aux noeud déjà visités
-                    pred[nom_noeud] = a_visiter 
-                    q.append(nom_noeud)
-
-    return pred 
-
-
-def chemin(o_graph, s_deb, s_fin):
-    """ 
-    Trouve le plus court chemin entre deux noeuds
-    
-    Paramètres
-    ----------
-    o_graph : list
-        liste des noeuds adjacents au noeud de départ
-    s_deb : str
-        noeud de départ
-    s_fin : str
-        noeud de fin
-
-    Retourne
-    -------
-    chemin : list
-        liste contenant le plus court chemin entre deux noeuds
-    """
-    
-    l = bfs(o_graph, s_deb)
-
-    if s_deb == s_fin: 
-        return [s_deb] 
-    elif not s_fin in l.keys(): 
-        return []  
-    else: 
-        p = chemin(o_graph, s_deb, l[s_fin])
-        return p + [s_fin]
-
-
-
-*/
-//----------------------------------------------------- Méthodes publiques
+//--------------------------------------------------------- Méthodes publiques
 void Catalogue::Afficher() const
 {
     std::cout << "Catalogue des trajets :" << std::endl;
@@ -89,10 +34,19 @@ void Catalogue::Afficher() const
     std::cout << "Fin du catalogue." << std::endl;
 }
 
-void Catalogue::AjouterTrajet(Noeud *noeud) {ListeChainee::AjouterNoeud(noeud);}
+void Catalogue::AjouterTrajet ( Noeud * noeud )
+// Mode d'emploi :
+// Ajoute un trajet au catalogue
+{
+    ListeChainee::AjouterNoeud(noeud);
+} //----- Fin de AjouterTrajet
 
-
-Noeud *Catalogue::Recherche(Ville villeDepart, Ville villeArrivee) const
+Noeud * Catalogue::Recherche ( Ville villeDepart, Ville villeArrivee ) const
+// Mode d'emploi :
+// Recherche un trajet direct entre deux villes
+//
+// Contrat :
+// Retourne nullptr si aucun trajet n'est trouvé
 {
     Noeud *courant = tete;
     for (int i = 0; i < taille; i++)
@@ -106,8 +60,15 @@ Noeud *Catalogue::Recherche(Ville villeDepart, Ville villeArrivee) const
     }
 
     return nullptr;
-}
-Pile Catalogue::RechercheProfondeur(Ville villeDepart, Ville villeArrivee) const
+} //----- Fin de Recherche
+
+Pile Catalogue::RechercheProfondeur ( Ville villeDepart, Ville villeArrivee ) const
+// Mode d'emploi :
+// Recherche tous les trajets possibles entre deux villes
+// en utilisant un parcours en profondeur
+//
+// Contrat :
+// Retourne une pile vide si aucun trajet n'est trouvé
 {
     bool* parcouru = new bool[taille];
     for(int i = 0; i < taille; ++i)
@@ -118,8 +79,36 @@ Pile Catalogue::RechercheProfondeur(Ville villeDepart, Ville villeArrivee) const
     Pile res = RechercheProfondeurImplementation(villeDepart, villeArrivee, parcouru);
     delete[] parcouru;
     return res;
-}
-Pile  Catalogue::RechercheProfondeurImplementation(Ville villeDepart, Ville villeArrivee, bool* parcouru) const
+} //----- Fin de RechercheProfondeur
+
+//----------------------------------------------------- Surcharge d'opérateurs
+
+//------------------------------------------------ Constructeurs - destructeur
+
+Catalogue::Catalogue ( ) : ListeChainee()
+{
+#ifdef MAP
+    cout << "Appel au constructeur de <Catalogue>" << endl;
+#endif
+} //----- Fin de Catalogue
+
+Catalogue::~Catalogue ( )
+{
+#ifdef MAP
+    cout << "Appel au destructeur de <Catalogue>" << endl;
+#endif
+} //----- Fin de ~Catalogue
+
+//---------------------------------------------------------------------- PRIVE
+
+//--------------------------------------------------------- Méthodes protégées
+
+Pile Catalogue::RechercheProfondeurImplementation ( Ville villeDepart, Ville villeArrivee, bool * parcouru ) const
+// Mode d'emploi :
+// Implémentation récursive de la recherche en profondeur
+//
+// Contrat :
+// parcouru doit être un tableau de taille >= nombre de trajets
 {
 
     // algorithme <<<<< maison >>>>
@@ -183,27 +172,4 @@ Pile  Catalogue::RechercheProfondeurImplementation(Ville villeDepart, Ville vill
 
     // on est arrivé à la toute fin sans rien trouver
     return meilleur_candidat;
-}
-
-//------------------------------------------------- Surcharge d'opérateurs
-//-------------------------------------------- Constructeurs - destructeur
-
-Catalogue::Catalogue() : ListeChainee()
-{
-#ifdef MAP
-    cout << "Appel au constructeur de <Catalogue>" << endl;
-#endif
-}
-
-Catalogue::~Catalogue() 
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au destructeur de <Catalogue>" << endl;
-#endif
-} //----- Fin de ~Catalogue
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
+} //----- Fin de RechercheProfondeurImplementation

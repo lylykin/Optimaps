@@ -5,8 +5,8 @@
 
 enum UIOptions
 {
-    OPTION_AJOUT_TRAJET = 1,
-    OPTION_MODIF_TRAJET,
+    OPTION_AJOUT_TRAJET_SIMPLE = 1,
+    OPTION_AJOUT_TRAJET_COMPOSE,
     OPTION_RECHERCHE_TRAJET,
     OPTION_RECHERCHE_PROFONDEUR,
     OPTION_DISPLAY_ALL,
@@ -23,7 +23,7 @@ void test()
     // traj.Afficher();
 
     // test2 : affichage de liste chainée=> ne marche pas
-    ListeChainee list ;
+    ListeChainee list;
     list.AjouterNoeud(traj);
     list.Afficher();
 }
@@ -36,7 +36,7 @@ int main()
     std::cout << "- Opti traj - " << std::endl;
 
     int user_choice = 0;
-    Catalogue catalogue ;
+    Catalogue catalogue;
     Noeud *traj;
     char *v_a = new char[50];
     char *v_b = new char[50];
@@ -45,8 +45,8 @@ int main()
     while (user_choice != OPTION_EXIT)
     {
         std::cout << "========================================" << std::endl;
-        std::cout << "[1] Ajouter un trajet" << std::endl;
-        std::cout << "[2] Modifier un trajet" << std::endl;
+        std::cout << "[1] Ajouter un trajet sans escale (simple)" << std::endl;
+        std::cout << "[2] Ajouter un trajet avec escale (composé)" << std::endl;
         std::cout << "[3] Rechercher un trajet" << std::endl;
         std::cout << "[4] Rechercher un trajet (profondeur)" << std::endl;
         std::cout << "[5] Afficher tous les trajets" << std::endl;
@@ -58,25 +58,51 @@ int main()
         switch (user_choice)
         // #FIXME : dans le cas ou l'utilisateur rentre autre chose qu'un chiffre, boucle à l'infini!!
         {
-        case OPTION_AJOUT_TRAJET:
+        case OPTION_AJOUT_TRAJET_SIMPLE:
         {
-            std::cout << "Ajout d'un trajet" << std::endl;
+            std::cout << "Ajout d'un trajet sans escale" << std::endl;
             std::cout << "Ville de départ : " << std::endl;
             std::cin >> v_a;
             std::cout << "Ville d'arrivée : " << std::endl;
             std::cin >> v_b;
             std::cout << "Mode de transport : " << std::endl;
             std::cin >> t;
-            traj = new Trajet(v_a, v_b, Transport::AUTO);
+            traj = new Trajet(v_a, v_b, Str2Transport(t));
             std::cout << "Trajet créé. Ajout au catalogue" << std::endl;
             catalogue.AjouterTrajet(traj);
             // #FIXME : cleanup des méthodes redondantes
+            // #FIXME : implémentation de l'ajout de trajet composé : pas compatible avec ce qui est écrit
+
             break;
         }
-        case OPTION_MODIF_TRAJET:
+        case OPTION_AJOUT_TRAJET_COMPOSE:
         {
-            // #FIXME : supprimer cette option car non demandée
-            std::cout << "Modifier un trajet : option non implémentée car non demandé:)" << std::endl;
+            ListeChainee *liste_traj = new ListeChainee();
+
+            // Ajout des trajets 
+            std::cout << "Ajout d'un trajet avec escale. Une fois la ville de destination finale tapée, taper 'Q'. " << std::endl;
+            std::cout << "Ville de départ : " << std::endl;
+            std::cin >> v_a;
+
+            do
+            {
+                std::cout << "Ville suivante : " << std::endl;
+                std::cin >> v_b;
+                if (strcasecmp(v_b, "Q") == 0)
+                {
+                    break;
+                }
+                std::cout << "Mode de transport : " << std::endl;
+
+                std::cin >> t;
+                traj = new Trajet(v_a, v_b, Str2Transport(t));
+                liste_traj->AjouterFin(traj);
+
+                strcpy(v_a, v_b);
+
+            } while (strcasecmp(v_b, "Q") != 0);
+            std::cout << "Trajet créé. Ajout au catalogue" << std::endl;
+            catalogue.AjouterTrajet(liste_traj);
 
             break;
         }
@@ -92,6 +118,7 @@ int main()
             {
                 std::cout << "Trajet trouvé :" << std::endl;
                 result->Afficher();
+                std::cout<<std::endl;
             }
             else
             {
@@ -100,7 +127,7 @@ int main()
 
             break;
         }
-     
+
         case OPTION_RECHERCHE_PROFONDEUR:
         {
             std::cout << "Ville de départ : " << std::endl;

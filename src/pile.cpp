@@ -1,50 +1,23 @@
+//---------- Réalisation de la classe <Pile> (fichier Pile.cpp) ----------------
 
-#include "pile.hpp"
+//---------------------------------------------------------------- INCLUDE
+
+//------------------------------------------------------------ Include système
+using namespace std;
 #include <iostream>
-// Pile utilisée pour la recherche en profondeur
 
+//---------------------------------------------------------- Include personnel
+#include "pile.hpp"
 
-Pile::Pile()
-{
+//----------------------------------------------------------------- Constantes
 
-    capacite = 0;
-    sommet = 0;
-    pile = nullptr;
-}
+//--------------------------------------------------------------------- PUBLIC
 
-Pile::Pile(Pile const & copie)
-{
-    capacite = copie.capacite;
-    sommet = copie.sommet;
-    pile = new Noeud*[capacite];
-    for (size_t i = 0; i < sommet; ++i)
-    {
-        pile[i] = copie.pile[i];
-    }
-}
+//--------------------------------------------------------- Méthodes publiques
 
-Pile & Pile::operator=(const Pile & other)
-{
-    if (this != &other)
-    {
-        delete[] pile;
-        capacite = other.capacite;
-        sommet = other.sommet;
-        pile = new Noeud*[capacite];
-        for (size_t i = 0; i < sommet; ++i)
-        {
-            pile[i] = other.pile[i];
-        }
-    }
-    return *this;
-}
-
-Pile::~Pile()
-{
-    delete[] pile;
-}
-
-void Pile::push(Noeud* element)
+void Pile::push ( Noeud * element )
+// Mode d'emploi :
+// Ajoute un élément au sommet de la pile
 { 
     if (capacite == 0)
     {
@@ -70,19 +43,25 @@ void Pile::push(Noeud* element)
     pile[sommet] = element;
     sommet++;
     poids += element->poids();
-}
+} //----- Fin de push
 
-bool Pile::vide() const
+bool Pile::vide ( ) const
+// Mode d'emploi :
+// Vérifie si la pile est vide
 {
     return sommet == 0;
-}
+} //----- Fin de vide
 
-size_t Pile::taille() const
+size_t Pile::taille ( ) const
+// Mode d'emploi :
+// Retourne le nombre d'éléments dans la pile
 {
     return sommet;
-}
+} //----- Fin de taille
 
-Noeud* Pile::element(size_t index) const
+Noeud * Pile::element ( size_t index ) const
+// Mode d'emploi :
+// Retourne l'élément à l'index donné
 {
     if (index < sommet)
     {
@@ -90,23 +69,76 @@ Noeud* Pile::element(size_t index) const
     }
     else
     {
-        std::cerr << "Erreur : Index hors limites." << std::endl;
+        cerr << "Erreur : Index hors limites." << endl;
         return nullptr;
     }
-}
+} //----- Fin de element
 
-void Pile::Afficher() const
+void Pile::Afficher ( ) const
+// Mode d'emploi :
+// Affiche tous les éléments de la pile
 {
-    std::cout << "Série de trajet: { " << std::endl;
+    cout << "Série de trajet: { " << endl;
     for (int i = sommet - 1 ; i >= 0; --i)
     {
-        std::cout << " [ ";
+        cout << " [ ";
         pile[i]->Afficher();
-        std::cout << " ] ";
+        cout << " ] ";
         if (i > 0)
         {
-            std::cout << " -> ";
+            cout << " -> ";
         }
     }
-    std::cout <<std::endl<<  "}" << std::endl;
-}
+    cout << endl << "}" << endl;
+} //----- Fin de Afficher
+
+//----------------------------------------------------- Surcharge d'opérateurs
+
+Pile & Pile::operator = ( const Pile & other )
+// Mode d'emploi :
+// Opérateur d'affectation par copie
+{
+    if (this != &other)
+    {
+        delete[] pile;
+        capacite = other.capacite;
+        sommet = other.sommet;
+        pile = new Noeud*[capacite];
+        for (size_t i = 0; i < sommet; ++i)
+        {
+            pile[i] = other.pile[i];
+        }
+    }
+    return *this;
+} //----- Fin de operator =
+
+//------------------------------------------------ Constructeurs - destructeur
+
+Pile::Pile ( )
+{
+    capacite = 0;
+    sommet = 0;
+    pile = nullptr;
+} //----- Fin de Pile
+
+Pile::Pile ( Pile const & copie )
+// Mode d'emploi :
+// Constructeur de copie
+{
+    capacite = copie.capacite;
+    sommet = copie.sommet;
+    pile = new Noeud*[capacite];
+    for (size_t i = 0; i < sommet; ++i)
+    {
+        pile[i] = copie.pile[i];
+    }
+} //----- Fin de Pile (constructeur de copie)
+
+Pile::~Pile ( )
+{
+    delete[] pile;
+} //----- Fin de ~Pile
+
+//---------------------------------------------------------------------- PRIVE
+
+//--------------------------------------------------------- Méthodes protégées

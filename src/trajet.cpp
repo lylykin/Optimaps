@@ -1,36 +1,37 @@
-/*************************************************************************
-                           Ensemble  -  description
-                             -------------------
-    début                : $DATE$
-    copyright            : (C) $YEAR$ par $AUTHOR$
-    e-mail               : $EMAIL$
-*************************************************************************/
-
-//---------- Réalisation de la classe <Ensemble> (fichier Ensemble.cpp) ------------
+//---------- Réalisation de la classe <Trajet> (fichier Trajet.cpp) ----------------
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
-#include <cstring>
+//------------------------------------------------------------ Include système
+using namespace std;
 #include <iostream>
+#include <cstring>
 
-//------------------------------------------------------ Include personnel
+//---------------------------------------------------------- Include personnel
 #include "trajet.hpp"
 
-//------------------------------------------------------------- Constantes
+//----------------------------------------------------------------- Constantes
 
-//----------------------------------------------------------------- PUBLIC
+//--------------------------------------------------------------------- PUBLIC
 
-//----------------------------------------------------- Méthodes publiques
-void Trajet::Afficher() const {
-    std::cout << depart 
+//--------------------------------------------------------- Méthodes publiques
+void Trajet::Afficher ( ) const
+// Mode d'emploi :
+// Affiche le trajet (ville de départ, ville d'arrivée et moyen de transport)
+{
+    cout << depart 
     <<" --> "<< arrivee
     <<" ("<< Transport2Str(trans)<<")";
-}
+} //----- Fin de Afficher
 
-//------------------------------------------------- Surcharge d'opérateurs
+//----------------------------------------------------- Surcharge d'opérateurs
 
-Trajet & Trajet::operator=(const Trajet & traj)
+Trajet & Trajet::operator = ( const Trajet & traj )
+// Mode d'emploi :
+// Opérateur d'affectation par copie
+//
+// Contrat :
+// Crée une copie depuis traj
 {
     // cas spécial
     if(&traj == this)
@@ -49,12 +50,14 @@ Trajet & Trajet::operator=(const Trajet & traj)
 
     trans = traj.trans;
 
-
     return *this;
-}
+} //----- Fin de operator =
 
+//------------------------------------------------ Constructeurs - destructeur
 
-Trajet::Trajet(const Trajet& copie)
+Trajet::Trajet ( const Trajet & copie )
+// Mode d'emploi :
+// Constructeur de copie
 {
 
     // delete[] depart + delete[] arrivee non nécessaire vue qu'ils n'existent pas
@@ -66,10 +69,15 @@ Trajet::Trajet(const Trajet& copie)
     strcpy(arrivee, copie.arrivee);
 
     trans = copie.trans;
-}
+} //----- Fin de Trajet (constructeur de copie)
 
-Trajet::Trajet(const char* nom_depart, const char* nom_arrivee, Transport transport)
+Trajet::Trajet ( const char * nom_depart, const char * nom_arrivee, Transport transport )
     : trans(transport)
+// Mode d'emploi :
+// Construit un trajet avec les paramètres fournis
+//
+// Contrat :
+// Crée une copie des chaînes de caractères départ et arrivée
 {
     size_t depart_len = strlen(nom_depart);
     size_t arrivee_len = strlen(nom_arrivee);
@@ -79,18 +87,15 @@ Trajet::Trajet(const char* nom_depart, const char* nom_arrivee, Transport transp
 
     strcpy(depart, nom_depart );
     strcpy(arrivee, nom_arrivee );
-}
+} //----- Fin de Trajet
 
-Trajet::~Trajet() 
+Trajet::~Trajet ( )
 {
     delete[] depart;
     delete[] arrivee;
-}
+} //----- Fin de ~Trajet
 
-//-------------------------------------------- Constructeurs - destructeur
+//---------------------------------------------------------------------- PRIVE
 
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
+//--------------------------------------------------------- Méthodes protégées
 

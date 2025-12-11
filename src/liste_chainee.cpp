@@ -1,29 +1,33 @@
-//---------- Réalisation de la classe <Ensemble> (fichier Ensemble.cpp) ------------
+//---------- Réalisation de la classe <ListeChainee> (fichier ListeChainee.cpp) ----------------
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//------------------------------------------------------------ Include système
+using namespace std;
 #include <iostream>
 
-//------------------------------------------------------ Include personnel
+//---------------------------------------------------------- Include personnel
 #include "liste_chainee.hpp"
 
-//------------------------------------------------------------- Constantes
-//----------------------------------------------------------------- PUBLIC
+//----------------------------------------------------------------- Constantes
 
-//----------------------------------------------------- Méthodes publiques
+//--------------------------------------------------------------------- PUBLIC
 
+//--------------------------------------------------------- Méthodes publiques
 
-
-void ListeChainee::AjouterTete(Noeud *noeud)
+void ListeChainee::AjouterTete ( Noeud * noeud )
+// Mode d'emploi :
+// Ajoute un noeud en tête de liste
 {
     std::cout << "Ajout d'un noeud en tête de liste" << std::endl;
     noeud->setSuivant(tete);
     tete = noeud;
     ++taille;
-}
+} //----- Fin de AjouterTete
 
-int ListeChainee::Poids() const
+int ListeChainee::Poids ( ) const
+// Mode d'emploi :
+// Retourne le poids total de la liste
 {
     int totalPoids = 0;
     Noeud *res_noeud = tete;
@@ -33,8 +37,11 @@ int ListeChainee::Poids() const
         res_noeud = res_noeud->getSuivant();
     }
     return totalPoids;
-}
-void ListeChainee::AjouterFin(Noeud *noeud)
+} //----- Fin de Poids
+
+void ListeChainee::AjouterFin ( Noeud * noeud )
+// Mode d'emploi :
+// Ajoute un noeud à la fin de la liste
 {
     noeud->setSuivant(nullptr); // voir le constructeur : le ferait pas pas défaut?
 
@@ -49,7 +56,7 @@ void ListeChainee::AjouterFin(Noeud *noeud)
         Noeud *res_node = tete; // penser à appeler le destructeur de noeud?
 
         // aller au dernier noeud de la liste
-        for (int i = 0; i < taille; ++i)
+        for (int i = 0; i < taille-1; ++i)
         {
             res_node = res_node->getSuivant();
         }
@@ -57,9 +64,12 @@ void ListeChainee::AjouterFin(Noeud *noeud)
         res_node->setSuivant(noeud);
         ++taille;
     }
-}
+} //----- Fin de AjouterFin
 
-void ListeChainee::AjouterNoeud(Noeud *noeud, int place)
+void ListeChainee::AjouterNoeud ( Noeud * noeud, int place )
+// Mode d'emploi :
+// Ajoute un noeud à une position donnée
+// Si au début ou à la fin, appel automatique de AjouterTete ou AjouterFin
 {
     std::cout << "Ajout de noeud à l'indice " << place << std::endl;
     if ((place >= taille) || (place < 0))
@@ -100,9 +110,11 @@ void ListeChainee::AjouterNoeud(Noeud *noeud, int place)
             ++taille;
         }
     }
-}
+} //----- Fin de AjouterNoeud
 
-void ListeChainee::SupprimerDebut()
+void ListeChainee::SupprimerDebut ( )
+// Mode d'emploi :
+// Supprime le premier noeud de la liste
 {
 
     if(tete == nullptr)
@@ -116,9 +128,11 @@ void ListeChainee::SupprimerDebut()
 
     delete old_tete;
     taille--;
-}
+} //----- Fin de SupprimerDebut
 
-void ListeChainee::SupprimerFin()
+void ListeChainee::SupprimerFin ( )
+// Mode d'emploi :
+// Supprime le dernier noeud de la liste
 {
 
     if(tete == nullptr)
@@ -137,9 +151,13 @@ void ListeChainee::SupprimerFin()
   //  (res_node->getSuivant())->~Noeud(); // meme rq que pour début?
     res_node->setSuivant(nullptr);
     taille--;
-}
+} //----- Fin de SupprimerFin
 
-void ListeChainee::SupprimerTrajet(int place)
+void ListeChainee::SupprimerTrajet ( int place )
+// Mode d'emploi :
+// Supprime le noeud à la position donnée
+// Contrat : 
+// place doit être un indice valide
 {
     // #FIXME : je pense que cette implémentation n'est pas logique.
     //  faire à partir du trajet et non de la place.
@@ -172,9 +190,11 @@ void ListeChainee::SupprimerTrajet(int place)
             --taille;
         }
     }
-}
+} //----- Fin de SupprimerTrajet
 
-void ListeChainee::Afficher() const
+void ListeChainee::Afficher ( ) const
+// Mode d'emploi :
+// Affiche tous les éléments de la liste
 {
     
     Noeud *res_noeud = tete;
@@ -184,12 +204,14 @@ void ListeChainee::Afficher() const
         res_noeud = res_noeud->getSuivant();
         if(res_noeud != nullptr)
         {
-            std::cout << " -> ";
+            cout << " -> ";
         }
     }
+} //----- Fin de Afficher
 
-}
-Ville ListeChainee::getDepart() const
+Ville ListeChainee::getDepart ( ) const
+// Mode d'emploi :
+// Retourne la ville de départ du premier noeud
 {
     if (tete != nullptr)
     {
@@ -200,8 +222,11 @@ Ville ListeChainee::getDepart() const
         // Gérer le cas où la liste est vide
         return nullptr;
     }
-}
-Ville ListeChainee::getArrivee() const
+} //----- Fin de getDepart
+
+Ville ListeChainee::getArrivee ( ) const
+// Mode d'emploi :
+// Retourne la ville d'arrivée du dernier noeud
 {
     if (tete != nullptr)
     {
@@ -217,16 +242,19 @@ Ville ListeChainee::getArrivee() const
         // Gérer le cas où la liste est vide
         return nullptr;
     }
-}
-//------------------------------------------------- Surcharge d'opérateurs
-//-------------------------------------------- Constructeurs - destructeur
-ListeChainee::ListeChainee()
+} //----- Fin de getArrivee
+
+//----------------------------------------------------- Surcharge d'opérateurs
+
+//------------------------------------------------ Constructeurs - destructeur
+
+ListeChainee::ListeChainee ( )
 {
     tete = nullptr;
     taille = 0;
-}
+} //----- Fin de ListeChainee
 
-ListeChainee::~ListeChainee()
+ListeChainee::~ListeChainee ( )
 {
     Noeud *res = tete;
     while (res != nullptr)
@@ -235,8 +263,8 @@ ListeChainee::~ListeChainee()
         delete tete;
         tete = res;
     }
-}
+} //----- Fin de ~ListeChainee
 
-//------------------------------------------------------------------ PRIVE
+//---------------------------------------------------------------------- PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//--------------------------------------------------------- Méthodes protégées

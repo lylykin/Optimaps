@@ -1,9 +1,28 @@
-#include "transport.hpp"
+//---------- Réalisation de la classe <Transport> (fichier Transport.cpp) ----------------
+
+//---------------------------------------------------------------- INCLUDE
+
+//------------------------------------------------------------ Include système
+using namespace std;
 #include <iostream>
-#include <stddef.h>
 #include <string.h>
 
-const char *Transport2Str(Transport val)
+//---------------------------------------------------------- Include personnel
+#include "transport.hpp"
+
+//----------------------------------------------------------------- Constantes
+
+//--------------------------------------------------------------------- PUBLIC
+
+//--------------------------------------------------------- Méthodes publiques
+
+const char * Transport2Str ( Transport val )
+// Mode d'emploi :
+// Convertit un Transport en chaîne de caractères
+//
+// Contrat :
+// val doit être un Transport valide
+//
 {
     switch (val)
     {
@@ -20,10 +39,15 @@ const char *Transport2Str(Transport val)
     default:
         return "inconnu";
     }
-}
+} //----- Fin de Transport2Str
 
-Transport Str2Transport(const char *val)
-// #QUESTION j'ai du enlever le const, mais est-ce que c'est une bonne idée/philo?
+Transport Str2Transport ( const char * val )
+// Mode d'emploi :
+// Convertit une chaîne de caractères en Transport
+//
+// Contrat :
+// val doit être un Transport valide
+//
 {
     // formattage de la chaine de caractère
 
@@ -51,4 +75,8 @@ Transport Str2Transport(const char *val)
     {
         return Transport::UNKNOWN;
     }
-}
+} //----- Fin de Str2Transport
+
+//---------------------------------------------------------------------- PRIVE
+
+//--------------------------------------------------------- Méthodes protégées
