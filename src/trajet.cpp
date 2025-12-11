@@ -22,7 +22,7 @@
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-void Trajet::Afficher(){
+void Trajet::Afficher() const {
     std::cout << depart 
     <<" --> "<< arrivee
     <<" ("<< Transport2Str(trans)<<")" 
@@ -69,17 +69,17 @@ Trajet::Trajet(const Trajet& copie)
     trans = copie.trans;
 }
 
-Trajet::Trajet(Ville vdepart, Ville varrivee, Transport transport)
+Trajet::Trajet(const char* nom_depart, const char* nom_arrivee, Transport transport)
     : trans(transport)
 {
-    size_t depart_len = strlen(vdepart);
-    size_t arrivee_len = strlen(varrivee);
+    size_t depart_len = strlen(nom_depart);
+    size_t arrivee_len = strlen(nom_arrivee);
 
     depart = new char[depart_len + 1];
     arrivee = new char[arrivee_len + 1];
 
-    strcpy(depart, vdepart );
-    strcpy(arrivee, varrivee );
+    strcpy(depart, nom_depart );
+    strcpy(arrivee, nom_arrivee );
 }
 
 Trajet::~Trajet() 

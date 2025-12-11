@@ -27,7 +27,7 @@ class Trajet : public Noeud
         // qui deviennent invalides lors de la destruction
         // de trajet ! 
 
-        virtual void Afficher();
+        virtual void Afficher() const;
         // Afficher un trajet
         //------------------------------------------------- Surcharge d'opérateurs
         Trajet & operator=(const Trajet& right);
@@ -35,7 +35,7 @@ class Trajet : public Noeud
         // Créé une copie depuis right 
 
         //-------------------------------------------- Constructeurs - destructeur
-        Trajet(Ville vdepart, Ville varrivee, Transport transport);
+        Trajet(const char* vdepart, const char* varrivee, Transport transport);
         Trajet(Trajet const & copie);
     
         Ville getDepart() const { return depart; }

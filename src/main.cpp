@@ -16,12 +16,14 @@ void test()
 {
 
     // test1 : affichage d'un trajet => concluant
-    Trajet traj = Trajet((Ville) "Ville_dep", (Ville) "Ville_arr", Transport::AUTO);
+
+    // Ville a besoin d'une allocation dynamique pour eviter un crash
+    Trajet *traj = new Trajet((Ville) "Ville_dep", (Ville) "Ville_arr", Transport::AUTO);
     // traj.Afficher();
 
     //test2 : affichage de liste chainée=> ne marche pas
     ListeChainee list = ListeChainee();
-    list.AjouterNoeud(&traj);
+    list.AjouterNoeud(traj);
     list.Afficher();
 
 
@@ -29,15 +31,17 @@ void test()
 
 int main()
 {
-    test();
-    return 0;
+    //test();
+    //return 0;
 
     std::cout << "- Opti traj - " << std::endl;
 
     int user_choice = 0;
     Catalogue catalogue = Catalogue();
     Noeud *traj;
-    char *v_a = new char[50], *v_b = new char[50], *t = new char[30];
+    char *v_a = new char[50];
+    char *v_b = new char[50];
+    char *t = new char[30];
 
     while (user_choice != OPTION_EXIT)
     {
@@ -62,7 +66,7 @@ int main()
             std::cin >> v_b;
             std::cout << "Mode de transport : " << std::endl;
             std::cin >> t;
-            traj = new Trajet((Ville)v_a, (Ville)v_b, Transport::AUTO);
+            traj = new Trajet(v_a, v_b, Transport::AUTO);
             // traj = new Trajet((Ville)v_a, (Ville)v_b, Str2Transport(&t));
             // j'arrive pas a l'utiliser aled
             std::cout << "Trajet créé. Ajout au catalogue" << std::endl;
