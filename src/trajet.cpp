@@ -25,8 +25,7 @@
 void Trajet::Afficher() const {
     std::cout << depart 
     <<" --> "<< arrivee
-    <<" ("<< Transport2Str(trans)<<")" 
-    << std::endl;
+    <<" ("<< Transport2Str(trans)<<")";
 }
 
 //------------------------------------------------- Surcharge d'opérateurs

@@ -176,15 +176,18 @@ void ListeChainee::SupprimerTrajet(int place)
 
 void ListeChainee::Afficher() const
 {
-    std::cout << "Liste { " << std::endl;
+    
     Noeud *res_noeud = tete;
     for (int i = 0; i < taille; i++)
     {
         res_noeud->Afficher();
         res_noeud = res_noeud->getSuivant();
+        if(res_noeud != nullptr)
+        {
+            std::cout << " -> ";
+        }
     }
 
-    std::cout << "}" << std::endl;
 }
 Ville ListeChainee::getDepart() const
 {

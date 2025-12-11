@@ -80,8 +80,9 @@ void Catalogue::Afficher() const
     std::cout << "Catalogue des trajets :" << std::endl;
     for(Noeud* current = tete; current != nullptr; current = current->getSuivant())
     {
+        std::cout << " - ";
         current->Afficher();
-        std::cout << "-----------------" << std::endl;
+        std::cout << std::endl;
     }
 
     std::cout << "Fin du catalogue." << std::endl;

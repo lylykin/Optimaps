@@ -98,9 +98,15 @@ Noeud* Pile::element(size_t index) const
 void Pile::Afficher() const
 {
     std::cout << "Série de trajet: { " << std::endl;
-    for (size_t i = 0; i < sommet; ++i)
+    for (int i = sommet - 1 ; i >= 0; --i)
     {
+        std::cout << " [ ";
         pile[i]->Afficher();
+        std::cout << " ] ";
+        if (i > 0)
+        {
+            std::cout << " -> ";
+        }
     }
-    std::cout << "}" << std::endl;
+    std::cout <<std::endl<<  "}" << std::endl;
 }
