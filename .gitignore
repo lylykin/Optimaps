@@ -1,2 +1,4 @@
-./trajet
-./build/**
+trajet
+build/**
+**.o
+**.d
