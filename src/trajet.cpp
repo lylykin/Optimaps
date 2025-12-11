@@ -25,7 +25,7 @@
 void Trajet::Afficher(){
     std::cout << depart 
     <<" --> "<< arrivee
-    <<" ("<< trans<<" )" 
+    <<" ("<< Transport2Str(trans)<<")" 
     << std::endl;
 }
 

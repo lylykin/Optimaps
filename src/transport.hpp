@@ -16,11 +16,19 @@ enum Transport
     METRO,
     BATEAU,
     VELO,
+    UNKNOWN
 };
 
 const char* Transport2Str(Transport val);
 // Mode d'emploi : 
 //      Transport2Str(Transport::TRAIN) => "Train"
+// Contrat : 
+//      Val doit être un Transport valide <!> 
+//      La chaine retournée n'est pas une copie  
+
+Transport Str2Transport(const char * & val);
+// Mode d'emploi : 
+//      Str2Transport("Train") => TRAIN
 // Contrat : 
 //      Val doit être un Transport valide <!> 
 //      La chaine retournée n'est pas une copie  

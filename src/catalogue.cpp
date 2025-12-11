@@ -99,7 +99,6 @@ Noeud *Catalogue::Recherche(Ville villeDepart, Ville villeArrivee) const
 Noeud *Catalogue::RechercheProfondeur(Ville villeDepart, Ville villeArrivee) const
 {
 
-    
     return nullptr;
 }
 
