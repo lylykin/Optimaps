@@ -22,6 +22,7 @@ void Trajet::Afficher ( ) const
     cout << depart 
     <<" --> "<< arrivee
     <<" ("<< Transport2Str(trans)<<")";
+  
 } //----- Fin de Afficher
 
 //----------------------------------------------------- Surcharge d'opérateurs
@@ -69,6 +70,10 @@ Trajet::Trajet ( const Trajet & copie )
     strcpy(arrivee, copie.arrivee);
 
     trans = copie.trans;
+    #ifdef MAP
+        cout << "Appel au constructeur de copie de <Trajet>" << endl;
+    #endif
+
 } //----- Fin de Trajet (constructeur de copie)
 
 Trajet::Trajet ( const char * nom_depart, const char * nom_arrivee, Transport transport )
@@ -87,12 +92,19 @@ Trajet::Trajet ( const char * nom_depart, const char * nom_arrivee, Transport tr
 
     strcpy(depart, nom_depart );
     strcpy(arrivee, nom_arrivee );
+    #ifdef MAP
+        cout << "Appel au constructeur de <Trajet>" << endl;
+    #endif
+    
 } //----- Fin de Trajet
 
 Trajet::~Trajet ( )
 {
     delete[] depart;
     delete[] arrivee;
+    #ifdef MAP
+        cout << "Appel au destructeur de <Trajet>" << endl;
+    #endif
 } //----- Fin de ~Trajet
 
 //---------------------------------------------------------------------- PRIVE

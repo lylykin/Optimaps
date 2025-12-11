@@ -43,7 +43,7 @@ void ListeChainee::AjouterFin ( Noeud * noeud )
 // Mode d'emploi :
 // Ajoute un noeud à la fin de la liste
 {
-    noeud->setSuivant(nullptr); // voir le constructeur : le ferait pas pas défaut?
+    noeud->setSuivant(nullptr);
 
     // gestion du cas de la liste vide
     if (tete == nullptr)
@@ -53,7 +53,7 @@ void ListeChainee::AjouterFin ( Noeud * noeud )
     }
     else
     {
-        Noeud *res_node = tete; // penser à appeler le destructeur de noeud?
+        Noeud *res_node = tete;
 
         // aller au dernier noeud de la liste
         for (int i = 0; i < taille-1; ++i)
@@ -99,7 +99,7 @@ void ListeChainee::AjouterNoeud ( Noeud * noeud, int place )
         else
         {
 
-            Noeud *res_node = tete; // penser à appeler le destructeur de noeud?
+            Noeud *res_node = tete; 
 
             for (int i = 0; i < place; i++)
             {
@@ -178,7 +178,7 @@ void ListeChainee::SupprimerTrajet ( int place )
         }
         else
         {
-            Noeud *res_node = tete; // penser à appeler le destructeur de noeud?
+            Noeud *res_node = tete;
 
             for (int i = 0; i < place; i++)
             {
@@ -252,6 +252,10 @@ ListeChainee::ListeChainee ( )
 {
     tete = nullptr;
     taille = 0;
+
+    #ifdef MAP
+        cout << "Appel au constructeur de <ListeChainee>" << endl;
+    #endif
 } //----- Fin de ListeChainee
 
 ListeChainee::~ListeChainee ( )
@@ -263,6 +267,9 @@ ListeChainee::~ListeChainee ( )
         delete tete;
         tete = res;
     }
+    #ifdef MAP
+        cout << "Appel au destructeur de <ListeChainee>" << endl;
+    #endif
 } //----- Fin de ~ListeChainee
 
 //---------------------------------------------------------------------- PRIVE

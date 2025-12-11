@@ -119,7 +119,12 @@ Pile::Pile ( )
     capacite = 0;
     sommet = 0;
     pile = nullptr;
+    
+    #ifdef MAP
+        cout << "Appel au constructeur de <Pile>" << endl;
+    #endif
 } //----- Fin de Pile
+
 
 Pile::Pile ( Pile const & copie )
 // Mode d'emploi :
@@ -137,6 +142,9 @@ Pile::Pile ( Pile const & copie )
 Pile::~Pile ( )
 {
     delete[] pile;
+    #ifdef MAP
+        cout << "Appel au destructeur de <Pile>" << endl;
+    #endif
 } //----- Fin de ~Pile
 
 //---------------------------------------------------------------------- PRIVE

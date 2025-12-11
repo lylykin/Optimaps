@@ -13,25 +13,8 @@ enum UIOptions
     OPTION_EXIT
 };
 
-void test()
-{
-
-    // test1 : affichage d'un trajet => concluant
-
-    // Ville a besoin d'une allocation dynamique pour eviter un crash
-    Trajet *traj = new Trajet((Ville) "Ville_dep", (Ville) "Ville_arr", Transport::AUTO);
-    // traj.Afficher();
-
-    // test2 : affichage de liste chainée=> ne marche pas
-    ListeChainee list;
-    list.AjouterNoeud(traj);
-    list.Afficher();
-}
-
 int main()
 {
-    // test();
-    // return 0;
 
     std::cout << "- Opti traj - " << std::endl;
 
@@ -56,7 +39,7 @@ int main()
         std::cin >> user_choice;
 
         switch (user_choice)
-        // #FIXME : dans le cas ou l'utilisateur rentre autre chose qu'un chiffre, boucle à l'infini!!
+        // #FIXME : dans le cas ou l'utilisateur rentre autre chose qu'un chiffre, boucle à l'infini (possiblilé d'amélioration)
         {
         case OPTION_AJOUT_TRAJET_SIMPLE:
         {
@@ -70,9 +53,6 @@ int main()
             traj = new Trajet(v_a, v_b, Str2Transport(t));
             std::cout << "Trajet créé. Ajout au catalogue" << std::endl;
             catalogue.AjouterTrajet(traj);
-            // #FIXME : cleanup des méthodes redondantes
-            // #FIXME : implémentation de l'ajout de trajet composé : pas compatible avec ce qui est écrit
-
             break;
         }
         case OPTION_AJOUT_TRAJET_COMPOSE:
