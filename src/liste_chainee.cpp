@@ -146,13 +146,13 @@ void ListeChainee::SupprimerFin()
     taille--;
 }
 
-void ListeChainee::SupprimerTrajet(Noeud *noeud, int place)
+void ListeChainee::SupprimerTrajet(int place)
 {
     // #FIXME : je pense que cette implémentation n'est pas logique.
     //  faire à partir du trajet et non de la place.
     if ((place >= taille) || (place < 0))
     {
-        std::cout << "erreur : place est out of range: " << place << std::endl;
+        std::cerr << "erreur : place est out of range: " << place << std::endl;
         return;
     }
     else
@@ -183,13 +183,15 @@ void ListeChainee::SupprimerTrajet(Noeud *noeud, int place)
 
 void ListeChainee::Afficher() const
 {
-    std::cout << "Liste [: " << std::endl;
+    std::cout << "Liste { " << std::endl;
     Noeud *res_noeud = tete;
     for (int i = 0; i < taille; i++)
     {
         res_noeud->Afficher();
         res_noeud = res_noeud->getSuivant();
     }
+
+    std::cout << "}" << std::endl;
 }
 Ville ListeChainee::getDepart() const
 {

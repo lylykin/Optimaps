@@ -41,7 +41,7 @@ public:
     void SupprimerDebut();
     //ajouter à la fin un trajet. meme remarque qu'au dessus
 
-    void SupprimerTrajet(Noeud *noeud, int place);
+    void SupprimerTrajet(int place);
     //ajouter à la fin un trajet. meme remarque qu'au dessus
 
     Ville getDepart() const; 
