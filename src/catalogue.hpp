@@ -1,3 +1,4 @@
+#include "pile.hpp"
 #if !defined(CATALOGUE_H)
 #    define CATALOGUE_H
 #include "liste_chainee.hpp"
@@ -29,10 +30,10 @@ public:
 
     void AjouterTrajet(Noeud *noeud);
 
-    Noeud* Recherche(Ville villeDepart, Ville villeArrivee) const;
-    Noeud* RechercheProfondeur(Ville villeDepart, Ville villeArrivee) const;
+    Noeud *Recherche(Ville villeDepart, Ville villeArrivee) const;
+    Pile RechercheProfondeur(Ville villeDepart, Ville villeArrivee ) const;
 
-   
+
 
     //------------------------------------------------- Surcharge d'opérateurs
     //-------------------------------------------- Constructeurs - destructeur
@@ -47,6 +48,7 @@ public:
     //------------------------------------------------------------------ PRIVE
 
 protected:
+    Pile RechercheProfondeurImplementation(Ville villeDepart, Ville villeArrivee, bool *parcouru = nullptr) const;
 
     //----------------------------------------------------- Méthodes protégées
 

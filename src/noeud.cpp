@@ -7,3 +7,13 @@
 #include "trajet.hpp"
 //----------------------------------------------------------------- PUBLIC
 
+bool Noeud::equivalent(const char* vdepart, const char* varrivee) const
+{
+    return (strcmp(this->getDepart(), vdepart) == 0) && (strcmp(this->getArrivee(), varrivee) == 0);
+}
+
+bool Noeud::equivalent(const Noeud *autre) const
+{
+    return autre->equivalent(this->getDepart(), this->getArrivee());
+}
+

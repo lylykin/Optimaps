@@ -13,43 +13,7 @@
 
 //----------------------------------------------------- Méthodes publiques
 
-/*
-ListeChainee::ListeChainee(const ListeChainee &other)
-{
-    Noeud *current = other.tete;
-    for (size_t i = 0; i < other.taille; ++i)
-    {
-        this->AjouterFin(*current);
-        current = current->getSuivant();
-    }
-}
-ListeChainee &ListeChainee::operator=(const ListeChainee &other)
-{
-    if (this == &other)
-    {
-        return *this;
-    }
-    // Libérer les ressources actuelles
-    Noeud *res = tete;
-    while (res != nullptr)
-    {
-        res = res->getSuivant();
-        delete tete;
-        tete = res;
-    }
 
-    tete = nullptr;
-    taille = 0;
-    Noeud *current = other.tete;
-    for (size_t i = 0; i < other.taille; ++i)
-    {
-
-        this->AjouterFin(current);
-        current = current->getSuivant();
-    }
-
-    return *this;
-}*/
 
 void ListeChainee::AjouterTete(Noeud *noeud)
 {
@@ -59,6 +23,17 @@ void ListeChainee::AjouterTete(Noeud *noeud)
     ++taille;
 }
 
+int ListeChainee::Poids() const
+{
+    int totalPoids = 0;
+    Noeud *res_noeud = tete;
+    for (int i = 0; i < taille; i++)
+    {
+        totalPoids += res_noeud->poids();
+        res_noeud = res_noeud->getSuivant();
+    }
+    return totalPoids;
+}
 void ListeChainee::AjouterFin(Noeud *noeud)
 {
     noeud->setSuivant(nullptr); // voir le constructeur : le ferait pas pas défaut?
@@ -129,19 +104,37 @@ void ListeChainee::AjouterNoeud(Noeud *noeud, int place)
 
 void ListeChainee::SupprimerDebut()
 {
+
+    if(tete == nullptr)
+    {
+        std::cerr << "erreur : liste vide, impossible de supprimer au début" << std::endl;
+        return;
+    }
+    Noeud *old_tete = tete;
     tete = tete->getSuivant();
-    // question : suppression en mém du noeud originel de tete?
+
+
+    delete old_tete;
     taille--;
 }
 
 void ListeChainee::SupprimerFin()
 {
+
+    if(tete == nullptr)
+    {
+        std::cerr << "erreur : liste vide, impossible de supprimer à la fin" << std::endl;
+        return;
+    }
+
     Noeud *res_node = tete;
     for (int i = 0; i < taille - 1; i++)
     {
         res_node = res_node->getSuivant();
     }
-    (res_node->getSuivant())->~Noeud(); // meme rq que pour début?
+
+    delete res_node->getSuivant();
+  //  (res_node->getSuivant())->~Noeud(); // meme rq que pour début?
     res_node->setSuivant(nullptr);
     taille--;
 }

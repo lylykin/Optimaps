@@ -4,8 +4,13 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
+#include <climits>
+#include <cstddef>
 #include <iostream>
 #include <string.h>
+#include "liste_chainee.hpp"
+#include "pile.hpp"
+#include "ville.hpp"
 using namespace std;
 //------------------------------------------------------ Include personnel
 #include "catalogue.hpp"
@@ -72,11 +77,14 @@ def chemin(o_graph, s_deb, s_fin):
 //----------------------------------------------------- Méthodes publiques
 void Catalogue::Afficher() const
 {
-    for (int i = 0; i < taille; i++) // bon faire un getTaille?
+    std::cout << "Catalogue des trajets :" << std::endl;
+    for(Noeud* current = tete; current != nullptr; current = current->getSuivant())
     {
-        ListeChainee::Afficher();
-        cout << endl;
+        current->Afficher();
+        std::cout << "-----------------" << std::endl;
     }
+
+    std::cout << "Fin du catalogue." << std::endl;
 }
 
 void Catalogue::AjouterTrajet(Noeud *noeud) {ListeChainee::AjouterNoeud(noeud);}
@@ -92,14 +100,87 @@ Noeud *Catalogue::Recherche(Ville villeDepart, Ville villeArrivee) const
         {
             return courant;
         }
+        courant = courant->getSuivant();
     }
 
     return nullptr;
 }
-Noeud *Catalogue::RechercheProfondeur(Ville villeDepart, Ville villeArrivee) const
+Pile Catalogue::RechercheProfondeur(Ville villeDepart, Ville villeArrivee) const
+{
+    bool* parcouru = new bool[taille];
+    for(int i = 0; i < taille; ++i)
+    {
+        parcouru[i] = false;
+    }
+
+    Pile res = RechercheProfondeurImplementation(villeDepart, villeArrivee, parcouru);
+    delete[] parcouru;
+    return res;
+}
+Pile  Catalogue::RechercheProfondeurImplementation(Ville villeDepart, Ville villeArrivee, bool* parcouru) const
 {
 
-    return nullptr;
+    // algorithme <<<<< maison >>>>
+    // On évite d'utiliser DFS, BFS, ou Dijkstra car pas de STL autorisé
+    // Sinon std::vector aurait été très très pratique et ce code innéficace n'aurait pas existé.
+    
+    // Pour chaque noeud: 
+    // - on vérifie si on a la ville de départ vers la ville d'arrivée, 
+    // - On visite si on a un noeud avec la même ville de départ, on le marque comme visité, puis on fait un appel récursif
+
+    // c'est comme si on avait: 
+    // A -> B 
+    // A -> C 
+    // C -> D 
+    // D -> E
+
+    // On parcours dans cet ordre pour A -> E: 
+    // A -> B (non)
+    // A -> C (oui, on marque C comme visité)
+    //     ON refait la recherche récursive de C -> E: 
+    //   C -> D (oui, on marque D comme visité)
+    //       ON refait la recherche récursive de D -> E:
+    //     D -> E (on a trouvé !)
+
+    // pendant toute la recherche on rajoute le chemin à chaque fois à une file 
+    // On réutilise la même structure de liste chaînée pour le résultat
+
+
+    Noeud *courant = tete;
+    Pile  meilleur_candidat {};
+    for (int i = 0; i < taille; i++)
+    {
+        if (!parcouru[i] && strcmp(courant->getDepart(), villeDepart) == 0 &&
+            strcmp(courant->getArrivee(), villeArrivee) == 0 )
+        {
+            Pile pile {};
+            pile.push(courant);
+            return pile;
+        }
+
+        if(!parcouru[i] && strcmp(courant->getDepart(), villeDepart) == 0)
+        {
+            parcouru[i] = true;
+            Pile res = RechercheProfondeurImplementation(courant->getArrivee(), villeArrivee, parcouru);
+            parcouru[i] = false; // on le remet à non visité pour d'autres chemins possibles
+           
+           
+            if(res.taille() > 0)
+            {
+                res.push(courant);
+                if(meilleur_candidat.taille() == 0 || res.Poids() < meilleur_candidat.Poids())
+                {
+                    meilleur_candidat = res;
+                } 
+            }
+        }
+
+        courant = courant->getSuivant();
+    }
+
+
+    // on est arrivé à la toute fin sans rien trouver
+    return meilleur_candidat;
 }
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -108,7 +189,7 @@ Noeud *Catalogue::RechercheProfondeur(Ville villeDepart, Ville villeArrivee) con
 Catalogue::Catalogue() : ListeChainee()
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <Ensemble>" << endl;
+    cout << "Appel au constructeur de <Catalogue>" << endl;
 #endif
 }
 
@@ -117,9 +198,9 @@ Catalogue::~Catalogue()
 //
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <Ensemble>" << endl;
+    cout << "Appel au destructeur de <Catalogue>" << endl;
 #endif
-} //----- Fin de ~Ensemble
+} //----- Fin de ~Catalogue
 
 //------------------------------------------------------------------ PRIVE
 

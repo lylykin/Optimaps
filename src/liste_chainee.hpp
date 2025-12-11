@@ -18,11 +18,14 @@ class ListeChainee : public Noeud
 {
     //----------------------------------------------------------------- PUBLIC
 
+    
 public:
 
-
+    ListeChainee(const ListeChainee &other) = delete;
+    ListeChainee &operator=(const ListeChainee &other) = delete;
     //----------------------------------------------------- Méthodes publiques
 
+    virtual int Poids() const;
     virtual void Afficher() const;
     // afficher la liste
 
