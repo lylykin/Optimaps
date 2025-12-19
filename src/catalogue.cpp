@@ -81,6 +81,18 @@ Pile Catalogue::RechercheProfondeur ( Ville villeDepart, Ville villeArrivee ) co
     return res;
 } //----- Fin de RechercheProfondeur
 
+void Catalogue::EnregistrerCatalogue(std::ofstream & fic) const
+{
+   Noeud *res_noeud = tete;
+   do
+   {
+    res_noeud->Enregistrer(fic);
+    res_noeud = res_noeud->getSuivant();
+    fic<<std::endl;
+   } while (res_noeud!=nullptr);
+
+}
+
 //----------------------------------------------------- Surcharge d'opérateurs
 
 //------------------------------------------------ Constructeurs - destructeur

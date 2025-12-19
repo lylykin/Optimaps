@@ -15,7 +15,7 @@ using namespace std;
 
 //--------------------------------------------------------- Méthodes publiques
 
-void ListeChainee::AjouterTete ( Noeud * noeud )
+void ListeChainee::AjouterTete(Noeud *noeud)
 // Mode d'emploi :
 // Ajoute un noeud en tête de liste
 {
@@ -25,7 +25,7 @@ void ListeChainee::AjouterTete ( Noeud * noeud )
     ++taille;
 } //----- Fin de AjouterTete
 
-int ListeChainee::Poids ( ) const
+int ListeChainee::Poids() const
 // Mode d'emploi :
 // Retourne le poids total de la liste
 {
@@ -39,7 +39,7 @@ int ListeChainee::Poids ( ) const
     return totalPoids;
 } //----- Fin de Poids
 
-void ListeChainee::AjouterFin ( Noeud * noeud )
+void ListeChainee::AjouterFin(Noeud *noeud)
 // Mode d'emploi :
 // Ajoute un noeud à la fin de la liste
 {
@@ -56,7 +56,7 @@ void ListeChainee::AjouterFin ( Noeud * noeud )
         Noeud *res_node = tete;
 
         // aller au dernier noeud de la liste
-        for (int i = 0; i < taille-1; ++i)
+        for (int i = 0; i < taille - 1; ++i)
         {
             res_node = res_node->getSuivant();
         }
@@ -66,7 +66,7 @@ void ListeChainee::AjouterFin ( Noeud * noeud )
     }
 } //----- Fin de AjouterFin
 
-void ListeChainee::AjouterNoeud ( Noeud * noeud, int place )
+void ListeChainee::AjouterNoeud(Noeud *noeud, int place)
 // Mode d'emploi :
 // Ajoute un noeud à une position donnée
 // Si au début ou à la fin, appel automatique de AjouterTete ou AjouterFin
@@ -74,12 +74,12 @@ void ListeChainee::AjouterNoeud ( Noeud * noeud, int place )
     std::cout << "Ajout de noeud à l'indice " << place << std::endl;
     if ((place >= taille) || (place < 0))
     {
-        //gestion du cas de la lsite vide
+        // gestion du cas de la lsite vide
         if (taille == 0)
         {
             AjouterTete(noeud);
         }
-        //gestion de l'erreur d'indice
+        // gestion de l'erreur d'indice
         else
         {
             std::cout << "erreur : place est out of range: " << place << std::endl;
@@ -99,7 +99,7 @@ void ListeChainee::AjouterNoeud ( Noeud * noeud, int place )
         else
         {
 
-            Noeud *res_node = tete; 
+            Noeud *res_node = tete;
 
             for (int i = 0; i < place; i++)
             {
@@ -112,12 +112,12 @@ void ListeChainee::AjouterNoeud ( Noeud * noeud, int place )
     }
 } //----- Fin de AjouterNoeud
 
-void ListeChainee::SupprimerDebut ( )
+void ListeChainee::SupprimerDebut()
 // Mode d'emploi :
 // Supprime le premier noeud de la liste
 {
 
-    if(tete == nullptr)
+    if (tete == nullptr)
     {
         std::cerr << "erreur : liste vide, impossible de supprimer au début" << std::endl;
         return;
@@ -125,17 +125,16 @@ void ListeChainee::SupprimerDebut ( )
     Noeud *old_tete = tete;
     tete = tete->getSuivant();
 
-
     delete old_tete;
     taille--;
 } //----- Fin de SupprimerDebut
 
-void ListeChainee::SupprimerFin ( )
+void ListeChainee::SupprimerFin()
 // Mode d'emploi :
 // Supprime le dernier noeud de la liste
 {
 
-    if(tete == nullptr)
+    if (tete == nullptr)
     {
         std::cerr << "erreur : liste vide, impossible de supprimer à la fin" << std::endl;
         return;
@@ -148,15 +147,15 @@ void ListeChainee::SupprimerFin ( )
     }
 
     delete res_node->getSuivant();
-  //  (res_node->getSuivant())->~Noeud(); // meme rq que pour début?
+    //  (res_node->getSuivant())->~Noeud(); // meme rq que pour début?
     res_node->setSuivant(nullptr);
     taille--;
 } //----- Fin de SupprimerFin
 
-void ListeChainee::SupprimerTrajet ( int place )
+void ListeChainee::SupprimerTrajet(int place)
 // Mode d'emploi :
 // Supprime le noeud à la position donnée
-// Contrat : 
+// Contrat :
 // place doit être un indice valide
 {
     // #FIXME : je pense que cette implémentation n'est pas logique.
@@ -192,24 +191,24 @@ void ListeChainee::SupprimerTrajet ( int place )
     }
 } //----- Fin de SupprimerTrajet
 
-void ListeChainee::Afficher ( ) const
+void ListeChainee::Afficher() const
 // Mode d'emploi :
 // Affiche tous les éléments de la liste
 {
-    
+
     Noeud *res_noeud = tete;
     for (int i = 0; i < taille; i++)
     {
         res_noeud->Afficher();
         res_noeud = res_noeud->getSuivant();
-        if(res_noeud != nullptr)
+        if (res_noeud != nullptr)
         {
             cout << " -> ";
         }
     }
 } //----- Fin de Afficher
 
-Ville ListeChainee::getDepart ( ) const
+Ville ListeChainee::getDepart() const
 // Mode d'emploi :
 // Retourne la ville de départ du premier noeud
 {
@@ -224,7 +223,7 @@ Ville ListeChainee::getDepart ( ) const
     }
 } //----- Fin de getDepart
 
-Ville ListeChainee::getArrivee ( ) const
+Ville ListeChainee::getArrivee() const
 // Mode d'emploi :
 // Retourne la ville d'arrivée du dernier noeud
 {
@@ -244,21 +243,32 @@ Ville ListeChainee::getArrivee ( ) const
     }
 } //----- Fin de getArrivee
 
+void ListeChainee::Enregistrer(std::ofstream &fic) const
+{
+    Noeud *res_noeud = tete;
+    for (int i = 0; i < taille; i++)
+    {
+        res_noeud->Enregistrer(fic);
+        res_noeud = res_noeud->getSuivant();
+    }
+    
+}
+
 //----------------------------------------------------- Surcharge d'opérateurs
 
 //------------------------------------------------ Constructeurs - destructeur
 
-ListeChainee::ListeChainee ( )
+ListeChainee::ListeChainee()
 {
     tete = nullptr;
     taille = 0;
 
-    #ifdef MAP
-        cout << "Appel au constructeur de <ListeChainee>" << endl;
-    #endif
+#ifdef MAP
+    cout << "Appel au constructeur de <ListeChainee>" << endl;
+#endif
 } //----- Fin de ListeChainee
 
-ListeChainee::~ListeChainee ( )
+ListeChainee::~ListeChainee()
 {
     Noeud *res = tete;
     while (res != nullptr)
@@ -267,9 +277,9 @@ ListeChainee::~ListeChainee ( )
         delete tete;
         tete = res;
     }
-    #ifdef MAP
-        cout << "Appel au destructeur de <ListeChainee>" << endl;
-    #endif
+#ifdef MAP
+    cout << "Appel au destructeur de <ListeChainee>" << endl;
+#endif
 } //----- Fin de ~ListeChainee
 
 //---------------------------------------------------------------------- PRIVE

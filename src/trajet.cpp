@@ -4,30 +4,35 @@
 
 //------------------------------------------------------------ Include système
 using namespace std;
-#include <iostream>
 #include <cstring>
+#include <iostream>
 
 //---------------------------------------------------------- Include personnel
 #include "trajet.hpp"
+#include "transport.hpp"
 
 //----------------------------------------------------------------- Constantes
 
 //--------------------------------------------------------------------- PUBLIC
 
 //--------------------------------------------------------- Méthodes publiques
-void Trajet::Afficher ( ) const
+void Trajet::Afficher() const
 // Mode d'emploi :
 // Affiche le trajet (ville de départ, ville d'arrivée et moyen de transport)
 {
-    cout << depart 
-    <<" --> "<< arrivee
-    <<" ("<< Transport2Str(trans)<<")";
-  
+    cout << depart
+         << " --> " << arrivee
+         << " (" << Transport2Str(trans) << ")";
+
 } //----- Fin de Afficher
 
+void Trajet::Enregistrer(std::ofstream &fic) const
+{
+    fic<<depart<<","<<arrivee<<","<<Transport2Str(trans); 
+}
 //----------------------------------------------------- Surcharge d'opérateurs
 
-Trajet & Trajet::operator = ( const Trajet & traj )
+Trajet &Trajet::operator=(const Trajet &traj)
 // Mode d'emploi :
 // Opérateur d'affectation par copie
 //
@@ -35,7 +40,7 @@ Trajet & Trajet::operator = ( const Trajet & traj )
 // Crée une copie depuis traj
 {
     // cas spécial
-    if(&traj == this)
+    if (&traj == this)
     {
         return *this;
     }
@@ -43,10 +48,10 @@ Trajet & Trajet::operator = ( const Trajet & traj )
     delete[] depart;
     delete[] arrivee;
 
-    depart = new char[strlen(traj.depart)+1];
-    arrivee = new char[strlen(traj.arrivee)+1];
+    depart = new char[strlen(traj.depart) + 1];
+    arrivee = new char[strlen(traj.arrivee) + 1];
 
-    strcpy(depart, traj.depart );
+    strcpy(depart, traj.depart);
     strcpy(arrivee, traj.arrivee);
 
     trans = traj.trans;
@@ -56,27 +61,27 @@ Trajet & Trajet::operator = ( const Trajet & traj )
 
 //------------------------------------------------ Constructeurs - destructeur
 
-Trajet::Trajet ( const Trajet & copie )
+Trajet::Trajet(const Trajet &copie)
 // Mode d'emploi :
 // Constructeur de copie
 {
 
     // delete[] depart + delete[] arrivee non nécessaire vue qu'ils n'existent pas
     // cas spécial
-    depart = new char[strlen(copie.depart)+1];
-    arrivee = new char[strlen(copie.arrivee)+1];
+    depart = new char[strlen(copie.depart) + 1];
+    arrivee = new char[strlen(copie.arrivee) + 1];
 
-    strcpy(depart, copie.depart );
+    strcpy(depart, copie.depart);
     strcpy(arrivee, copie.arrivee);
 
     trans = copie.trans;
-    #ifdef MAP
-        cout << "Appel au constructeur de copie de <Trajet>" << endl;
-    #endif
+#ifdef MAP
+    cout << "Appel au constructeur de copie de <Trajet>" << endl;
+#endif
 
 } //----- Fin de Trajet (constructeur de copie)
 
-Trajet::Trajet ( const char * nom_depart, const char * nom_arrivee, Transport transport )
+Trajet::Trajet(const char *nom_depart, const char *nom_arrivee, Transport transport)
     : trans(transport)
 // Mode d'emploi :
 // Construit un trajet avec les paramètres fournis
@@ -90,24 +95,23 @@ Trajet::Trajet ( const char * nom_depart, const char * nom_arrivee, Transport tr
     depart = new char[depart_len + 1];
     arrivee = new char[arrivee_len + 1];
 
-    strcpy(depart, nom_depart );
-    strcpy(arrivee, nom_arrivee );
-    #ifdef MAP
-        cout << "Appel au constructeur de <Trajet>" << endl;
-    #endif
-    
+    strcpy(depart, nom_depart);
+    strcpy(arrivee, nom_arrivee);
+#ifdef MAP
+    cout << "Appel au constructeur de <Trajet>" << endl;
+#endif
+
 } //----- Fin de Trajet
 
-Trajet::~Trajet ( )
+Trajet::~Trajet()
 {
     delete[] depart;
     delete[] arrivee;
-    #ifdef MAP
-        cout << "Appel au destructeur de <Trajet>" << endl;
-    #endif
+#ifdef MAP
+    cout << "Appel au destructeur de <Trajet>" << endl;
+#endif
 } //----- Fin de ~Trajet
 
 //---------------------------------------------------------------------- PRIVE
 
 //--------------------------------------------------------- Méthodes protégées
-

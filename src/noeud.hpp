@@ -5,7 +5,7 @@
 //------------------------------------------------------- Interfaces utilisées
 #include "ville.hpp"
 #include <cstring>
-
+#include <fstream>
 //----------------------------------------------------------------- Constantes
 
 //---------------------------------------------------------------------- Types
@@ -55,6 +55,9 @@ public:
     // Mode d'emploi :
     // Retourne le poids du noeud (nombre de segments)
     // Par défaut un noeud a un poids de 1
+
+    virtual void Enregistrer(std::ofstream & fic) const = 0;
+    //enregistrer un noeud à la fin du fichier fic
 
 //------------------------------------------------- Surcharge d'opérateurs
 

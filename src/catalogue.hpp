@@ -46,6 +46,10 @@ public:
     // Contrat :
     // Retourne une pile vide si aucun trajet n'est trouvé
 
+    void EnregistrerCatalogue(std::ofstream & fic) const ;
+
+    //void ChargerFichier(std:ofstream & fic);
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur

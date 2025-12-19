@@ -40,6 +40,8 @@ public:
     // Contrat :
     // Le pointeur retourné devient invalide lors de la destruction du trajet
 
+    void Enregistrer(std::ofstream & fic) const;
+
 //------------------------------------------------- Surcharge d'opérateurs
     Trajet & operator = ( const Trajet & right );
     // Mode d'emploi :

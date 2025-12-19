@@ -10,6 +10,8 @@ enum UIOptions
     OPTION_RECHERCHE_TRAJET,
     OPTION_RECHERCHE_PROFONDEUR,
     OPTION_DISPLAY_ALL,
+    OPTION_SAVE_CATALOG,
+    OPTION_LOAD_CATALOG,
     OPTION_EXIT
 };
 
@@ -24,6 +26,7 @@ int main()
     char *v_a = new char[50];
     char *v_b = new char[50];
     char *t = new char[30];
+    std::ofstream fic("./catalogue.txt");
 
     while (user_choice != OPTION_EXIT)
     {
@@ -33,7 +36,9 @@ int main()
         std::cout << "[3] Rechercher un trajet" << std::endl;
         std::cout << "[4] Rechercher un trajet (profondeur)" << std::endl;
         std::cout << "[5] Afficher tous les trajets" << std::endl;
-        std::cout << "[6] Quitter" << std::endl;
+        std::cout << "[6] Sauvegarder le catalogue" << std::endl;
+        std::cout << "[7] Charger le catalogue à partir d'un fichier" << std::endl;
+        std::cout << "[8] Quitter" << std::endl;
 
         std::cout << ">";
         std::cin >> user_choice;
@@ -59,7 +64,7 @@ int main()
         {
             ListeChainee *liste_traj = new ListeChainee();
 
-            // Ajout des trajets 
+            // Ajout des trajets
             std::cout << "Ajout d'un trajet avec escale. Une fois la ville de destination finale tapée, taper 'Q'. " << std::endl;
             std::cout << "Ville de départ : " << std::endl;
             std::cin >> v_a;
@@ -98,7 +103,7 @@ int main()
             {
                 std::cout << "Trajet trouvé :" << std::endl;
                 result->Afficher();
-                std::cout<<std::endl;
+                std::cout << std::endl;
             }
             else
             {
@@ -134,6 +139,15 @@ int main()
             // #FIXME : problème d'affichage
             break;
         }
+        case OPTION_SAVE_CATALOG:
+        {
+            catalogue.EnregistrerCatalogue(fic);
+            break;
+        }
+        case OPTION_LOAD_CATALOG:
+        {
+            std::cout<<"en cours d'implémentation :)"<<std::endl;
+        }
         case OPTION_EXIT:
         {
             std::cout << "Au revoir!" << std::endl;
@@ -144,11 +158,12 @@ int main()
             std::cout << "Option invalide, réessayez." << std::endl;
             break;
         }
-        }
     }
+}
 
-    delete[] v_a;
-    delete[] v_b;
-    delete[] t;
-    return 0;
+delete[] v_a;
+delete[] v_b;
+delete[] t;
+fic.close();
+return 0;
 }

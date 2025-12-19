@@ -64,6 +64,8 @@ public:
     // Mode d'emploi :
     // Retourne la ville d'arrivée du dernier noeud
 
+    void Enregistrer(std::ofstream & fic) const;
+
 //------------------------------------------------- Surcharge d'opérateurs
     ListeChainee ( const ListeChainee & other ) = delete;
     ListeChainee & operator = ( const ListeChainee & other ) = delete;
