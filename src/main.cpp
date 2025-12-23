@@ -26,8 +26,6 @@ int main()
     char *v_a = new char[50];
     char *v_b = new char[50];
     char *t = new char[30];
-    std::ofstream fic("./catalogue.txt");
-
     while (user_choice != OPTION_EXIT)
     {
         std::cout << "========================================" << std::endl;
@@ -141,12 +139,17 @@ int main()
         }
         case OPTION_SAVE_CATALOG:
         {
+            std::ofstream fic("./catalogue.txt");
+
             catalogue.EnregistrerCatalogue(fic);
+            fic.close();
             break;
         }
         case OPTION_LOAD_CATALOG:
         {
-            std::cout<<"en cours d'implémentation :)"<<std::endl;
+            std::ifstream fic("catalogue.txt");
+            break;
+
         }
         case OPTION_EXIT:
         {
@@ -164,6 +167,5 @@ int main()
 delete[] v_a;
 delete[] v_b;
 delete[] t;
-fic.close();
 return 0;
 }

@@ -48,7 +48,7 @@ public:
 
     void EnregistrerCatalogue(std::ofstream & fic) const ;
 
-    //void ChargerFichier(std:ofstream & fic);
+    void ChargerFichier(std::ifstream & fic);
 
 //------------------------------------------------- Surcharge d'opérateurs
 
@@ -72,5 +72,8 @@ protected:
 };
 
 //------------------------------------ Autres définitions dépendantes de <Catalogue>
+
+int CommaCount(std::string str);
+std::string ExtractWord(std::string & str);
 
 #endif // CATALOGUE_H
